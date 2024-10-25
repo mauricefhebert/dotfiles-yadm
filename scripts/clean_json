@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Check if a JSON file parameter is provided
+if [ -z "$1" ]; then
+  echo "Usage: $0 <path_to_json_file>"
+  exit 1
+fi
+
+# Assign input file and output file
+input_file="$1"
+output_file="/c/Users/mfiliatreaultheber/temp/cleaned_output.txt"
+
+# Function to clean and format the JSON file
+clean_json() {
+  cat "$input_file" |
+  sed -E 's/<[^>]*>//g' |       # Remove HTML tags
+  sed 's/\\r//g' |              # Remove \r
+  sed 's/\\n//g' |              # Remove \n
+  sed 's/[{}]//g' |             # Remove curly braces
+  sed 's/,//g' |                # Remove commas
+  sed 's/^\s*//; s/\s*$//; s/"\s*/"/g; s/: *"/:  "/g' |  # Clean up spaces and format
+  sed 's/:/:\n/g' |             # Add a newline after each key-value pair
+  sed '/^$/d'                   # Remove any empty lines
+}
+
+# Run the cleaning function and export the result to a text file
+clean_json > "$output_file"
+
+# Display a message to indicate completion
+echo "Formatted JSON data has been saved to $output_file"

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Define the path to your custom yazi configuration directory
+yazi_config_home="$HOME/.config/yazi/filetree"
+
+quit
+
+sleep 100
+
+exit \r

@@ -1,0 +1,9 @@
+[[manager.prepend_keymap]]
+on = ['o']
+run = 'plugin --sync smart-enter'
+desc = 'Enter the child directory or open the in helix'
+
+[[manager.prepend_keymap]]
+on = "<C-b>"
+run = ":shell close_yazi_filetree"
+desc = 'quit the current running yazi instance'

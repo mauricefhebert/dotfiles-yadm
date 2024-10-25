@@ -1,0 +1,1 @@
+\w*(da:)\s?'\S*'\w* -> find da pattern

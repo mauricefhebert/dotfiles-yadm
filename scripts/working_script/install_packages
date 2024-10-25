@@ -1,0 +1,112 @@
+#!/bin/bash
+
+# Function to install package managers and re-install packages based on the environment
+install_and_restore() {
+    if [[ "$OSTYPE" == "msys" ]]; then
+        # Windows environment (Git Bash)
+        echo "Setting up the environment on Windows..."
+
+        # Install Chocolatey
+        if ! command -v choco &> /dev/null; then
+            echo "Installing Chocolatey..."
+            powershell -NoProfile -ExecutionPolicy Bypass -Command "Set-ExecutionPolicy AllSigned; Set-ExecutionPolicy Bypass -Scope Process; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))"
+        fi
+
+        # Install Scoop
+        if ! command -v scoop &> /dev/null; then
+            echo "Installing Scoop..."
+            powershell -NoProfile -ExecutionPolicy Bypass -Command "iwr -useb get.scoop.sh | iex"
+        fi
+
+        # Install Pip and Pipx
+        if ! command -v pip &> /dev/null; then
+            echo "Installing Pip..."
+            python -m ensurepip --upgrade
+        fi
+
+        if ! command -v pipx &> /dev/null; then
+            echo "Installing Pipx..."
+            python -m pip install --user pipx
+            python -m pipx ensurepath
+        fi
+
+        # Install FNM and Node.js
+        if ! command -v fnm &> /dev/null; then
+            echo "Installing FNM (Fast Node Manager)..."
+            curl -fsSL https://fnm.vercel.app/install | bash
+            source ~/.bashrc
+            fnm install --lts
+            fnm use --lts
+        fi
+
+        # Install Rust and Cargo
+        if ! command -v cargo &> /dev/null; then
+            echo "Installing Rust and Cargo..."
+            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+            source $HOME/.cargo/env
+        fi
+
+    elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        # Linux environment (Arch Linux)
+        echo "Setting up the environment on Arch Linux..."
+
+        # Install Pacman packages
+        sudo pacman -S --needed base-devel git fnm python-pip python-pipx rustup
+
+        # Set up Rust
+        rustup default stable
+        source $HOME/.cargo/env
+
+        # Install Node.js using FNM
+        fnm install --lts
+        fnm use --lts
+
+    else
+        echo "Unsupported environment. Exiting..."
+        exit 1
+    fi
+
+    echo "Package managers installed. Now installing packages from exported lists..."
+
+    # Install packages from the lists based on the environment
+    if [[ "$OSTYPE" == "msys" ]]; then
+        # Windows re-installation
+        while IFS= read -r package; do
+            winget install --id "$package" --accept-package-agreements --accept-source-agreements
+        done < ~/temp/winget-packages.txt
+
+        while IFS= read -r package; do
+            scoop install "$package"
+        done < ~/temp/scoop-packages.txt
+
+        while IFS= read -r package; do
+            choco install "$package" -y
+        done < ~/temp/choco-packages.txt
+
+    elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        # Linux re-installation
+        while IFS= read -r package; do
+            sudo pacman -S --needed "$package"
+        done < ~/temp/pacman-packages.txt
+    fi
+
+    # Shared package installations (Pip, Pipx, Npm, Cargo)
+    pip install -r ~/temp/pip-packages.txt
+
+    while IFS= read -r package; do
+        pipx install "$package"
+    done < ~/temp/pipx-packages.txt
+
+    while IFS= read -r package; do
+        npm install -g "$package"
+    done < <(sed '1d' ~/temp/npm-packages.txt)
+
+    while IFS= read -r package; do
+        cargo install "$package"
+    done < ~/temp/cargo-packages.txt
+
+    echo "All packages have been re-installed."
+}
+
+# Run the installation and restoration function
+install_and_restore

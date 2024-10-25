@@ -1,0 +1,149 @@
+# Configuration
+theme = "encom" # onedark, base16_terminal, base16_transparent
+
+[editor]
+auto-pairs = true
+mouse = true
+completion-timeout = 5 # Default: 250, Instant: 5
+bufferline = "always" # never, always, multiple
+color-modes = true
+true-color = true
+cursorline = true
+line-number = "relative"
+rulers = [120]
+auto-format = true
+text-width = 90
+
+[editor.statusline]
+left = ["mode", "spinner"]
+center = ["file-name", "file-modification-indicator", "read-only-indicator"]
+right = ["diagnostics", "version-control", "separator", "register", "file-encoding", "file-type"]
+separator = "│"
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+
+[editor.lsp]
+enable = true
+display-messages = false
+auto-signature-help = true
+display-inlay-hints = false
+display-signature-help-docs = true
+snippets = true
+goto-reference-include-declaration = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+
+[editor.auto-save]
+after-delay.enable = true
+
+[editor.indent-guides]
+character = "╎"
+render = true
+
+[editor.soft-wrap]
+enable = true
+wrap-at-text-width = true
+wrap-indicator = ""  # set wrap-indicator to "" to hide it
+
+# Keybind
+# Ctrl, Shift and Alt modifiers are encoded respectively with the prefixes C-, S- and A-
+
+[keys.normal]
+# Disable keybind not used
+up = "no_op"
+down = "no_op"
+left = "no_op"
+right = "no_op"
+pageup = "no_op"
+pagedown = "no_op"
+home = "no_op"
+end = "no_op"
+Q = "no_op"
+q = "no_op"
+# C-b = "no_op"
+
+
+# Saves and file management
+C-b = ":sh bash -c open_yazi_filetree"
+C-s = ":w" # Maps Ctrl-s to save file
+C-S-s = ":wa" # Maps Ctrl-Shift-s to save all
+C-n = ":n" # Maps Ctrl-n to create a new file
+A-S-f = "file_picker_in_current_buffer_directory"
+
+# Windows management
+A-S-h = ":hs" # Open the current file in a horizontal split
+A-S-v = ":vs" # Open the current file in a vertical split
+A-S-x = "wclose" # Close the current windows
+C-S-h = "jump_view_left" # Select windows to the left
+C-S-j = "jump_view_down" # Select windows to the down
+C-S-k = "jump_view_up" # Select windows to the up
+C-S-l = "jump_view_right" # Select windows to the right
+
+# Buffers
+"C-," = ":bp" # Maps Ctrl-h to previous buffer (tab)
+"C-." = ":bn" # Maps Ctrl-l to next buffer (tab)
+C-x = ":bc" # Maps Ctrl-x to close current buffer (tab)
+
+# Movements
+C-h = "goto_line_start" # goto line start
+C-j = "page_down" # jump down
+C-k = "page_up" # jump up
+C-l = "goto_line_end_newline" # goto line end
+
+# Selections
+A-x = "extend_to_line_bounds"
+S-x = ["extend_line_up", "extend_to_line_bounds"]
+
+"S-k" = ["delete_selection", "move_visual_line_up", "paste_before"]
+"S-j" = ["delete_selection", "move_visual_line_down", "paste_before"]
+"C-A-k" = ["yank", "move_visual_line_up", "paste_before", "keep_primary_selection"]
+"C-A-j" = ["yank", "move_visual_line_down", "paste_before", "keep_primary_selection"]
+
+# Others
+C-space = "code_action" # Maps Ctrl-space to show possible code actions
+# A-S-i = ":fmt" # Maps Alt-Shift-i to format code using the lsp
+"ret" = ["open_below", "normal_mode"] # Maps the enter key to open_below then re-enter normal mode
+C-S-A-r = ":config-reload" # Reload helix config
+
+[keys.insert]
+up = "no_op"
+down = "no_op"
+left = "no_op"
+right = "no_op"
+pageup = "no_op"
+pagedown = "no_op"
+home = "no_op"
+end = "no_op"
+
+# Saves and file management
+C-s = ":w" # Maps Ctrl-s to save file
+C-S-s = ":wa" # Maps Ctrl-Shift-s to save all
+
+[keys.select]
+# Movements
+C-h = "goto_line_start" # goto line start
+C-j = "page_down" # jump down
+C-k = "page_up" # jump up
+C-l = "goto_line_end" # goto line end
+
+# Selection
+A-x = "extend_to_line_bounds"
+S-x = ["extend_line_up", "extend_to_line_bounds"]
+
+"S-k" = ["delete_selection", "move_visual_line_up", "paste_before"]
+"S-j" = ["delete_selection", "move_visual_line_down", "paste_before"]
+"C-A-k" = ["yank", "move_visual_line_up", "paste_before", "keep_primary_selection"]
+"C-A-j" = ["yank", "move_visual_line_down", "paste_before", "keep_primary_selection"]
+
+[keys.normal.space.","]
+g = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"]
+r = ":sh bash -c 'wezterm start --class gui_tools --position 600,250 --cwd '$(pwd)' serpl'"
+s = ":sh wezterm start --class gui_tools --cwd '$(pwd)'"
+p = [":new", ":insert-output main.py", ":buffer-close!", ":redraw"]

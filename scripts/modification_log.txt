@@ -1,0 +1,9 @@
+Modification Log for /c/Users/mfiliatreaultheber/code/work/repo/PPZ3C-15-24/src/data/m3.json
+-----------------------------------
+Lines before removing dot after </strong>:
+
+Lines after removing dot after </strong>:
+
+Lines before adding dot after </artefact>:
+
+Lines after adding dot after </artefact>:

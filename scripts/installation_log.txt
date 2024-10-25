@@ -1,0 +1,138 @@
+Starting installation of LSPs, debuggers, linters, and formatters...
+Installing MSYS2 for gcc compiler...
+MSYS2 and gcc not found. Installing via scoop...
+MSYS2 installed successfully. Installing GCC...
+GCC installed successfully via MSYS2.
+Installing Visual Studio Build Tools...
+Installing vs_build_tools...
+Error installing vs_build_tools
+Installing @astrojs/language-server...
+@astrojs/language-server installed successfully
+awk-language-server is already installed.
+bash-language-server is already installed.
+shfmt is already installed.
+shellcheck is already installed.
+clangd is already installed.
+cppcheck is already installed.
+lldb is already installed.
+Installing cmake-language-server...
+cmake-language-server installed successfully
+Installing vscode-css-languageserver-bin...
+vscode-css-languageserver-bin installed successfully
+prettier is already installed.
+omnisharp is already installed.
+docker-langserver is already installed.
+Installing docker-compose-language-service...
+Error installing docker-compose-language-service
+Installing gopls...
+gopls installed successfully
+Installing golangci-lint...
+golangci-lint installed successfully
+Installing delve...
+delve installed successfully
+graphql-lsp is already installed.
+Installing vscode-html-languageserver-bin...
+vscode-html-languageserver-bin installed successfully
+prettier is already installed.
+Installing jdtls...
+Error installing jdtls
+typescript-language-server is already installed.
+eslint is already installed.
+prettier is already installed.
+vscode-json-languageserver is already installed.
+Installing kotlin-language-server...
+Error installing kotlin-language-server
+Installing texlab...
+Error installing texlab
+lua-language-server is already installed.
+Installing stylua...
+Error installing stylua
+marksman is already installed.
+prettier is already installed.
+intelephense is already installed.
+pylsp is already installed.
+Installing black...
+black installed successfully
+Installing flake8...
+flake8 installed successfully
+Installing debugpy...
+debugpy installed successfully
+rust-analyzer is already installed.
+lldb is already installed.
+Installing vscode-css-languageserver-bin...
+vscode-css-languageserver-bin installed successfully
+prettier is already installed.
+Installing svelte-language-server...
+svelte-language-server installed successfully
+Installing prettier-plugin-svelte...
+prettier-plugin-svelte installed successfully
+sql-language-server is already installed.
+tailwindcss-language-server is already installed.
+prettier is already installed.
+terraform-ls is already installed.
+Installing taplo...
+Error installing taplo
+vue-language-server is already installed.
+prettier is already installed.
+Installing lemminx...
+Error installing lemminx
+yaml-language-server is already installed.
+
+-- Packages installed successfully:
+@astrojs/language-server
+cmake-language-server
+vscode-css-languageserver-bin
+gopls
+golangci-lint
+delve
+vscode-html-languageserver-bin
+black
+flake8
+debugpy
+vscode-css-languageserver-bin
+svelte-language-server
+prettier-plugin-svelte
+
+-- Packages already installed:
+awk-language-server
+bash-language-server
+shfmt
+shellcheck
+clangd
+cppcheck
+lldb
+prettier
+omnisharp
+docker-langserver
+graphql-lsp
+prettier
+typescript-language-server
+eslint
+prettier
+vscode-json-languageserver
+lua-language-server
+marksman
+prettier
+intelephense
+pylsp
+rust-analyzer
+lldb
+prettier
+sql-language-server
+tailwindcss-language-server
+prettier
+terraform-ls
+vue-language-server
+prettier
+yaml-language-server
+
+-- Packages with errors or not found:
+vs_build_tools
+docker-compose-language-service
+jdtls
+kotlin-language-server
+texlab
+stylua
+taplo
+lemminx
+Installation of LSPs, debuggers, linters, and formatters completed!

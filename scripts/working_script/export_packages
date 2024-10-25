@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# Create a temporary directory
+mkdir -p ~/temp
+
+# Function to export packages based on the detected environment
+export_packages() {
+    if [[ "$OSTYPE" == "msys" ]]; then
+        # Windows environment (Git Bash)
+        echo "Exporting packages on Windows..."
+
+        # Export Winget packages
+        winget list > ~/temp/winget-packages.txt
+
+        # Export Scoop packages
+        scoop list > ~/temp/scoop-packages.txt
+
+        # Export Chocolatey packages
+        choco list --localonly > ~/temp/choco-packages.txt
+
+        # Export Pip packages
+        pip list --format=freeze > ~/temp/pip-packages.txt
+
+        # Export Pipx packages
+        pipx list > ~/temp/pipx-packages.txt
+
+        # Export Npm packages
+        npm list -g --depth=0 > ~/temp/npm-packages.txt
+
+        # Export Cargo packages
+        cargo install --list > ~/temp/cargo-packages.txt
+
+    elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        # Linux environment (Arch Linux)
+        echo "Exporting packages on Linux..."
+
+        # Export Pacman packages
+        pacman -Qqe > ~/temp/pacman-packages.txt
+
+        # Export Pip packages
+        pip list --format=freeze > ~/temp/pip-packages.txt
+
+        # Export Pipx packages
+        pipx list > ~/temp/pipx-packages.txt
+
+        # Export Npm packages
+        npm list -g --depth=0 > ~/temp/npm-packages.txt
+
+        # Export Cargo packages
+        cargo install --list > ~/temp/cargo-packages.txt
+
+    else
+        echo "Unsupported environment. Exiting..."
+        exit 1
+    fi
+
+    echo "All packages have been exported to ~/temp"
+}
+
+# Run the export function
+export_packages

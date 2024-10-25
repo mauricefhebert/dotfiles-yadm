@@ -1,0 +1,17 @@
+#!/bin/bash
+
+printf "options: \n vimium \n"
+
+echo -n "Make a selection: "
+read CHOICE
+
+case $CHOICE in
+
+	vimium)
+  viu	~/cheatsheets/vimium.png
+	;;
+
+	*)
+	  echo -n "unknown"
+	;;
+esac

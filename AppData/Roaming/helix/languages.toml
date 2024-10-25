@@ -1,0 +1,142 @@
+[language-server.emmet-lsp]
+command = "emmet-language-server"
+args = ["--stdio"]
+ 
+[language-server.astro-ls]
+command = "astro-ls"
+args = ["--stdio"]
+# config = { typescript = { tsdk = "~/.nvm/versions/node/v20.17.0/lib/node_modules/typescript/lib" } }
+config = { typescript = { tsdk = "C:\\Program Files\\nodejs\\node_modules\\typescript\\lib" } }
+ 
+[[language]]
+name = "astro"
+scope = "source.astro"
+injection-regex = "astro"
+file-types = ["astro"]
+language-servers = ["astro-ls", "tailwindcss-ls", "emmet-lsp"]
+formatter = { command = "prettier", args = ["--plugin", "prettier-plugin-astro", "--plugin", "prettier-plugin-tailwindcss", "--parser", "astro"] }
+auto-format = true
+block-comment-tokens = { start = "<!--", end = "-->" }
+indent = { tab-width = 2, unit = "  " }
+ 
+[[grammar]]
+name = "astro"
+source = { git = "https://github.com/virchau13/tree-sitter-astro", rev = "947e93089e60c66e681eba22283f4037841451e7" }
+ 
+[[language]]
+name = "vue"
+file-types = ["vue"]
+scope = "source.vue"
+roots = ["package.json", "nuxt.config.js"]
+injection-regex = "vue"
+auto-format = true
+formatter = { command = "prettier", args = ["--plugin", "prettier-plugin-tailwindcss", "--parser", "vue"] }
+language-servers = ["typescript-language-server", "vue-language-server", "tailwindcss-ls", "emmet-lsp"]
+indent = { tab-width = 2, unit = "  " }
+ 
+[[grammar]]
+name = "vue"
+source = { git = "https://github.com/ikatyang/tree-sitter-vue", rev = "91fe2754796cd8fba5f229505a23fa08f3546c06" }
+ 
+[language-server.tailwindcss-ls]
+config = { userLanguages = { vue = "html", astro = "html", "*.vue" = "html", "*astro" = "html" } }
+ 
+[[language-server.typescript-language-server.config.plugins]]
+name = "@vue/typescript-plugin"
+# location = "~/.nvm/versions/node/v20.17.0/lib/node_modules/@vue/language-server"
+location = "C:\\Program Files\\nodejs\\node_modules\\@vue\\vue-language-server"
+languages = ["vue"]
+ 
+ 
+[language-server.eslint]
+command = "vscode-eslint-language-server"
+args = ["--stdio"]
+
+[language-server.vscode-css-language-server.config]
+css = { validate = { enable = true} }
+scss = { validate = { enable = true } }
+less = { validate = { enable = true } }
+provideFormatter = true
+ 
+[language-server.vscode-json-language-server.config]
+json = {validate = {enable = true}, format = {enable = true} }
+provideFormatter = true
+ 
+[[language]]
+name = "typescript"
+language-servers = ["typescript-language-server", "eslint-lsp", "emmet-lsp"]
+formatter = {command = "prettier", args = ["--parser", "typescript"] }
+auto-format = true
+ 
+[[language]]
+name = "javascript"
+language-servers = ["typescript-language-server", "eslint-lsp", "emmet-lsp"]
+formatter = {command = "prettier", args = ["--parser", "typescript"]}
+auto-format = true
+ 
+[[language]]
+name = "html"
+scope = "text.html.basic"
+injection-regex = "html"
+file-types = ["html", "htm", "shtml", "xhtml", "xht", "jsp", "asp", "aspx", "jshtm", "volt", "rhtml"]
+block-comment-tokens = { start = "<!--", end = "-->" }
+language-servers = [ "vscode-html-language-server", "tailwindcss-ls", "emmet-lsp" ]
+formatter = {command = "prettier", args = ["--parser", "html"]}
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+ 
+[[grammar]]
+name = "html"
+source = { git = "https://github.com/tree-sitter/tree-sitter-html", rev = "29f53d8f4f2335e61bf6418ab8958dac3282077a" }
+ 
+[[language]]
+name = "css"
+scope = "source.css"
+injection-regex = "css"
+file-types = ["css", "scss"]
+block-comment-tokens = { start = "/*", end = "*/" }
+language-servers = [ "vscode-css-language-server", "tailwindcss-ls", "emmet-lsp" ]
+formatter = {command = "prettier", args = ["--parser", "css"]}
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+ 
+[[grammar]]
+name = "css"
+source = { git = "https://github.com/tree-sitter/tree-sitter-css", rev = "769203d0f9abe1a9a691ac2b9fe4bb4397a73c51" }
+ 
+[[language]]
+name = "scss"
+scope = "source.scss"
+injection-regex = "scss"
+file-types = ["scss"]
+block-comment-tokens = { start = "/*", end = "*/" }
+language-servers = [ "vscode-css-language-server", "tailwindcss-ls", "emmet-lsp" ]
+formatter = {command = "prettier", args = ["--parser", "scss"]}
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+ 
+[[grammar]]
+name = "scss"
+source = { git = "https://github.com/serenadeai/tree-sitter-scss", rev = "c478c6868648eff49eb04a4df90d703dc45b312a" }
+ 
+[[language]]
+name = "tsx"
+language-servers = [ "typescript-language-server", "tailwindcss-ls", "emmet-lsp" ]
+formatter = {command = "prettier", args = ["--parser", "html"]}
+auto-format = true
+
+[[language]]
+name = "markdown"
+language-servers = ["marksman", "mdpls"]
+
+[language-server.mdpls]
+command = "C:\\Users\\mfiliatreaultheber\\.cargo\\bin\\mdpls.exe"
+config = { markdown.preview.auto = true, markdown.preview.serveStatic = true }
+
+[[language]]
+name = "python"
+language-servers = ["pylsp"]
+
+[language-server.pylsp.config.pylsp]
+plugins.ruff.enabled = true
+plugins.black.enabled = true

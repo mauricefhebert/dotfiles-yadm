@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Define the path to your custom yazi configuration directory
+yazi_config_home="$HOME/.config/yazi/filetree"
+
+# Function to get the pane ID of a pane with a title containing "Yazi" or "yazi"
+get_pane_id_by_title() {
+  wezterm cli list --format=json | jq -r \
+    '.[] | select(.title | test("(?i)yazi")) | .pane_id'
+}
+
+# Check if a pane with a title containing "Yazi" or "yazi" exists
+pane_id=$(get_pane_id_by_title)
+
+if [ -n "$pane_id" ]; then
+  # Send the 'q' command to the pane to close 'yazi'
+  wezterm cli send-text --pane-id $pane_id --no-paste "q"
+  
+  # Optionally, you may want to send an additional Enter key to ensure it processes
+  wezterm cli send-text --pane-id $pane_id --no-paste $'\r'
+  wezterm cli send-text --pane-id $pane_id --no-paste $'exit'
+  wezterm cli send-text --pane-id $pane_id --no-paste $'\r'
+else
+  # Open a pane on the left
+  wezterm cli split-pane --left --percent 30
+
+  # Focus the newly created pane (if necessary, adjust the direction)
+  wezterm cli activate-pane-direction Left
+
+  # Optional: Introduce a short delay to ensure the pane has been created and focused
+  # sleep 1
+
+  # Capture the active pane ID into a variable
+  active_pane_id=$(wezterm cli list --format=json | jq -r '.[] | select(.is_active) | .pane_id')
+
+  # Send the command to the newly open pane with the custom config directory
+  wezterm cli send-text --pane-id $active_pane_id --no-paste "env YAZI_CONFIG_HOME=$yazi_config_home yazi"
+
+  # Send the enter key
+  wezterm cli send-text --pane-id $active_pane_id --no-paste $'\r'
+fi
